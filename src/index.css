@@ -1,0 +1,72 @@
+/* :root {
+
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hanken Grotesk", Arial, sans-serif;
+  background-color: #262626;
+  color: #D9D9D9;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+}
+
+.staticInfoDiv{
+  text-align: center;
+}
+
+button{
+  font-family: "Hanken Grotesk", Arial, sans-serif;
+}
+
+.programmingLanguages{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 500px;
+  gap: 0.3em;
+}
+
+.language{
+  /* background-color: darkgreen; */
+  /* border: 2px solid white; */
+  font-weight: bold;
+  font-size: 1.15em;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+.notInPlay{
+  opacity: 0.25;
+}
+
+.letters{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 500px;
+}
+
+.letterOption{
+  height: 50px; 
+  width: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;  
+  border: 2px solid black;
+  border-radius: 7px;
+  margin: 1px;
+}
