@@ -1,6 +1,8 @@
 
 {/* <Languages wrongGuesses={3}/> */}
 
+import {nanoid} from "nanoid";
+
 export default function Languages(props){
     const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
@@ -74,10 +76,10 @@ export default function Languages(props){
         }
 
         if(index<props.wrongGuesses){
-            return <div style={styles} className={`language notInPlay`}>{language}</div>
+            return <div key={nanoid()} style={styles} className={`language notInPlay`}>{language}</div>
         }
         else{
-            return <div style={styles} className={`language`}>{language}</div>
+            return <div key={nanoid()} style={styles} className={`language`}>{language}</div>
         }
     })
 
