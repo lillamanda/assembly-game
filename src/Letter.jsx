@@ -1,8 +1,7 @@
 
-// Needs to get a function for onclick
 export default function Letter(props){
 
-
+    // Add that if letter is guessed, it should also not have a cursor: pointer; property to indicate it is no longer clickable
     const styles = {
         backgroundColor: !props.letter.guessed ? "#e4d20d" : props.letter.isInWord ? "#23820e" : "#820e0e"
     }
@@ -12,12 +11,3 @@ export default function Letter(props){
     )
 
 }
-
-//  for (; i <= j; i++) {
-//             newLettersArray.push({
-//                 id: nanoid(),
-//                 char: String.fromCharCode(i), 
-//                 guessed: false, // if false - yellow, if true, check if in word or not, LOCKS for the entire game if false - should not be clicked
-//                 isInWord: word.includes(String.fromCharCode(i)), // False or true, - is the letter included in the word? 
-//             });
-//         }
