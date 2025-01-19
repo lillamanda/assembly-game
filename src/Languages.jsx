@@ -1,11 +1,7 @@
-
-{/* <Languages wrongGuesses={3}/> */}
-
 import {nanoid} from "nanoid";
 
 export default function Languages(props){
 
-    // Need to iterate over it so the wrong guessed crosses out the first languages 
     const languageArray = props.languages.map( (language, index) => {
         let styles = {
             backgroundColor: "#000",

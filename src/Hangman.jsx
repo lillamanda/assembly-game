@@ -7,30 +7,28 @@ import {nanoid} from "nanoid";
 import Guessfield from "./Guessfield.jsx";
 import Notification from "./Notification.jsx";
 
-// WHY IS IT RUNNIG TWICE? 
+// WHY IS IT RUNNING TWICE? 
 export default function Hangman() {
+    // Missing things: 
+        // Possibly adding API to get words
+        // Attaching database?? 
+        // It's rendering twice, why? only one state. Actually renders two words at first render/reload - the second one being used.
+        // Adding skulls on top of deleted languages
+        // CSS Styles. Including cursor: pointer at letters/buttons that are ACTIVE
+
     const wordsArray = ["POINT", "REACT", "BOOK", "REFACTOR"]
     const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
     const [letterArray, setLetterArray] = useState(() => populateLetterArray(wordsArray[Math.floor(Math.random()*(wordsArray.length))], "A", "Z"));
 
-
-    // This is an Array, not a word - make it into a string if so
     let wordToGuess = fetchWordToGuess();
     const wrongGuesses = letterArray.filter((letter) => letter.guessed && !letter.isInWord).length
-
-    console.log(wordToGuess)
 
     // Check if guesses > 8
     const gameLost = wrongGuesses >= 8;
     // Check if all letters are guessed
     const gameWon = wordToGuess.every(v => v.guessed === true);
 
-
-    // Display missing letters in word in RED
-    if(gameLost){
-        console.log("GAME LOST")
-    }
 
     function populateLetterArray(word, charA, charZ){
         console.log(word)
@@ -64,7 +62,6 @@ export default function Hangman() {
     }
 
 
-    // When there's two identical letters in the word, this function returns an array with identical keys - which gives an error 
     function fetchWordToGuess(){
         const lettersInWord = letterArray.filter((letter)=>letter.isInWord); 
 
@@ -74,7 +71,7 @@ export default function Hangman() {
             if(lettersInWord[i].placesInWord.length>1){
                 const places = lettersInWord[i].placesInWord;
                 for(let j = 0; j<places.length; j++){
-                    wordRightLength.push({...lettersInWord[i], placesInWord: places[j]});
+                    wordRightLength.push({...lettersInWord[i], placesInWord: places[j], id: `${lettersInWord[i].id}${j}`});
                 }
             }
             else{
@@ -113,7 +110,6 @@ export default function Hangman() {
     }
 
 
-    console.log(wrongGuesses)
     return (
         <main>
 

@@ -1,7 +1,3 @@
-
-
-{/* <Notification gameWon={gameWon} gameLost={gameLost} languageArray={languages} wrongGuesses={wrongGuesses}/> */}
-
 export default function Notification(props){
 
     function displayMessage(){
