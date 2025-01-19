@@ -4,10 +4,9 @@
 import {nanoid} from "nanoid";
 
 export default function Languages(props){
-    const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
     // Need to iterate over it so the wrong guessed crosses out the first languages 
-    const languageArray = languages.map( (language, index) => {
+    const languageArray = props.languages.map( (language, index) => {
         let styles = {
             backgroundColor: "#000",
             color: "#fff"

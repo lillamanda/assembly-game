@@ -5,22 +5,32 @@ import Letter from "./Letter.jsx";
 import Languages from "./Languages.jsx";
 import {nanoid} from "nanoid";
 import Guessfield from "./Guessfield.jsx";
+import Notification from "./Notification.jsx";
 
-
+// WHY IS IT RUNNIG TWICE? 
 export default function Hangman() {
     const wordsArray = ["POINT", "REACT", "BOOK", "REFACTOR"]
+    const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
     const [letterArray, setLetterArray] = useState(() => populateLetterArray(wordsArray[Math.floor(Math.random()*(wordsArray.length))], "A", "Z"));
 
 
     // This is an Array, not a word - make it into a string if so
-    const wordToGuess = fetchWordToGuess();
+    let wordToGuess = fetchWordToGuess();
+    const wrongGuesses = letterArray.filter((letter) => letter.guessed && !letter.isInWord).length
+
     console.log(wordToGuess)
-    // console.log(guess)
-    // console.log(fetchWordToGuess().wordToGuess)
-    // if(fetchWordToGuess().wordToGuess.every(v => {v.guessed === true})){
-    //     console.log("GAME WON")
-    // }
+
+    // Check if guesses > 8
+    const gameLost = wrongGuesses >= 8;
+    // Check if all letters are guessed
+    const gameWon = wordToGuess.every(v => v.guessed === true);
+
+
+    // Display missing letters in word in RED
+    if(gameLost){
+        console.log("GAME LOST")
+    }
 
     function populateLetterArray(word, charA, charZ){
         console.log(word)
@@ -82,43 +92,48 @@ export default function Hangman() {
 
     // Needs to check if game is done, - if the number of guesses > 8 whatever it is, or if the word is guessed
     function handleCharacterClick(charId){
-        // Find letter in array, check if already guessed
-        if (letterArray.find((letter) => letter.id === charId).guessed){
-            console.log("Error, already guessed")
-        }
-        else{
-            setLetterArray(oldLetterArray => {
-                const newArray = oldLetterArray.map((letter) => {
-                    return letter.id === charId ? {...letter, guessed: true} : letter;
-                });
-                return newArray;
-            })
+        if(!gameLost && !gameWon){
+            // Find letter in array, check if already guessed
+            if (letterArray.find((letter) => letter.id === charId).guessed){
+                console.log("Error, already guessed")
+            }
+            else{
+                setLetterArray(oldLetterArray => {
+                    const newArray = oldLetterArray.map((letter) => {
+                        return letter.id === charId ? {...letter, guessed: true} : letter;
+                    });
+                    return newArray;
+                })
+            }
         }
     }
 
+    function startNewGame(){
+        setLetterArray(populateLetterArray(wordsArray[Math.floor(Math.random()*(wordsArray.length))], "A", "Z"));
+    }
 
+
+    console.log(wrongGuesses)
     return (
         <main>
+
             <div className="staticInfoDiv">
                 <h1>Assembly: Endgame</h1>
                 <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
             </div> 
             
-            <div className="userFeedback">
-                {/* End of game message - You win! or Game over! */}
-            </div>   
+            <Notification gameWon={gameWon} gameLost={gameLost} languageArray={languages} wrongGuesses={wrongGuesses}/>
 
-            <Languages wrongGuesses={letterArray.filter((letter) => letter.guessed && !letter.isInWord).length}/>
+            <Languages languages={languages} wrongGuesses={wrongGuesses}/>
 
-            <Guessfield wordToGuess={wordToGuess}/>
+            <Guessfield wordToGuess={wordToGuess} gameLost={gameLost}/>
             
             <div className="letters">
                 {letterArray.map( (letter) => {
-                    // value={letter.char} guessed={letter.guessed} isInWord={letter.isInWord}
                     return <Letter key={letter.id} letter={letter} handleClick={() => handleCharacterClick(letter.id)}/>})}
             </div>
             
-            <button>New Game</button>
+            <button className="newGameBtn" onClick={startNewGame}>New Game</button>
             
         </main>
     )
