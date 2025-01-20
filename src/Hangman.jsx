@@ -7,21 +7,33 @@ import {nanoid} from "nanoid";
 import Guessfield from "./Guessfield.jsx";
 import Notification from "./Notification.jsx";
 
-// WHY IS IT RUNNING TWICE? 
+
 export default function Hangman() {
     // Missing things: 
         // Possibly adding API to get words
         // Attaching database?? 
-        // It's rendering twice, why? only one state. Actually renders two words at first render/reload - the second one being used.
         // Adding skulls on top of deleted languages
         // CSS Styles. Including cursor: pointer at letters/buttons that are ACTIVE
+
+    // Notes from the course: 
+        // Might use sections instead of divs
+        // He put Languages in a separate js-file as an array of objects with name of language, backgroundcolor and color
+        // Uses span instead of div on the letters/languages
+        // Called the list of letters Keyboard - which makes more sense :p 
+        // They used two useState: currentWord & guessedLetters
+        // Sorted values at the top of the component into State values, Derived values and Static values
+        // He did a list of different Farewell options for one language at a time (was not clear from the figma file who contained Farewell to TWO languages)
+        // Add "disabled"-property to letter-buttons when game is over
+
 
     const wordsArray = ["POINT", "REACT", "BOOK", "REFACTOR"]
     const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
-    const [letterArray, setLetterArray] = useState(() => populateLetterArray(wordsArray[Math.floor(Math.random()*(wordsArray.length))], "A", "Z"));
+    const [letterArray, setLetterArray] = useState( () => populateLetterArray(wordsArray[Math.floor(Math.random()*(wordsArray.length))], "A", "Z"));
 
     let wordToGuess = fetchWordToGuess();
+    console.log(wordToGuess)
+
     const wrongGuesses = letterArray.filter((letter) => letter.guessed && !letter.isInWord).length
 
     // Check if guesses > 8
@@ -31,6 +43,7 @@ export default function Hangman() {
 
 
     function populateLetterArray(word, charA, charZ){
+        // debugger
         console.log(word)
         const newLettersArray = []; 
         const wordAsArray = word.split("");
