@@ -11,21 +11,22 @@ import Notification from "./Notification.jsx";
 export default function Hangman() {
     // Missing things: 
         // Possibly adding API to get words
-        // Attaching database?? 
         // Adding skulls on top of deleted languages
         // CSS Styles. Including cursor: pointer at letters/buttons that are ACTIVE
+        // Polish CSS styles etc (not been my focus in this project)
 
     // Notes from the course: 
         // Might use sections instead of divs
         // He put Languages in a separate js-file as an array of objects with name of language, backgroundcolor and color
         // Uses span instead of div on the letters/languages
-        // Called the list of letters Keyboard - which makes more sense :p 
+        // Called the list of letters "Keyboard" - which makes more sense :p 
         // They used two useState: currentWord & guessedLetters
         // Sorted values at the top of the component into State values, Derived values and Static values
         // He did a list of different Farewell options for one language at a time (was not clear from the figma file who contained Farewell to TWO languages)
         // Add "disabled"-property to letter-buttons when game is over
 
 
+    // Can accept any word, just change what word is being set to letterArray
     const wordsArray = ["POINT", "REACT", "BOOK", "REFACTOR"]
     const languages = ["HTML", "CSS", "JavaScript", "React", "Typescript", "Node.js", "Python", "Ruby", "Assembly"];
 
@@ -37,7 +38,7 @@ export default function Hangman() {
     const wrongGuesses = letterArray.filter((letter) => letter.guessed && !letter.isInWord).length
 
     // Check if guesses > 8
-    const gameLost = wrongGuesses >= 8;
+    const gameLost = wrongGuesses >= languages.length-1;
     // Check if all letters are guessed
     const gameWon = wordToGuess.every(v => v.guessed === true);
 
